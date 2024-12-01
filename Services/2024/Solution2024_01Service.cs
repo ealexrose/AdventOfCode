@@ -10,9 +10,20 @@ namespace AdventOfCode.Services
 
             int answer = 0;
 
+            List<int> leftList = new List<int>();
+            List<int> rightList = new List<int>();
             foreach (string line in lines)
             {
+                string[] lineParts = line.Split(' ');
+                leftList.Add(int.Parse(lineParts[0]));
+                rightList.Add(int.Parse(lineParts.Last()));
+            }
+            leftList.Sort();
+            rightList.Sort();
 
+            for(int i = 0; i < leftList.Count; i++)
+            {
+                answer += Math.Abs(leftList[i] - rightList[i]);
             }
 
             return answer.ToString();
@@ -24,9 +35,20 @@ namespace AdventOfCode.Services
 
             int answer = 0;
 
+            List<int> leftList = new List<int>();
+            List<int> rightList = new List<int>();
             foreach (string line in lines)
             {
+                string[] lineParts = line.Split(' ');
+                leftList.Add(int.Parse(lineParts[0]));
+                rightList.Add(int.Parse(lineParts.Last()));
+            }
+            leftList.Sort();
+            rightList.Sort();
 
+            for (int i = 0; i < leftList.Count; i++)
+            {
+                answer += rightList.Where(x => x == leftList[i]).ToArray().Count() * leftList[i];
             }
 
             return answer.ToString();

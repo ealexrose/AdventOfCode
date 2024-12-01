@@ -9,10 +9,11 @@ namespace AdventOfCode.Services
             List<string> lines = Utility.GetInputLines(2019, 1, example);
 
             int answer = 0;
-
+            
             foreach (string line in lines)
             {
-
+                int lineValue = (int.Parse(line) / 3) - 2;
+                answer += lineValue;
             }
 
             return answer.ToString();
