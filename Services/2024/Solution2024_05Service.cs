@@ -36,21 +36,21 @@ namespace AdventOfCode.Services
                     string[] pageUpdateNumbers = line.Split(',');
                     pageUpdates.Add(pageUpdateNumbers.Select(int.Parse).ToList());
                 }
-                
+
             }
 
             pageRules = pageRules.OrderBy(p => p.firstPage).ToList();
 
-            foreach (List<int> pageUpdate in pageUpdates) 
+            foreach (List<int> pageUpdate in pageUpdates)
             {
                 bool validPageUpdate = true;
-                for (int i = 0; i < pageUpdate.Count; i++) 
+                for (int i = 0; i < pageUpdate.Count; i++)
                 {
                     if (!pageRules.Any(x => x.firstPage == pageUpdate[i]))
                         continue;
 
                     List<PageRule> releventPageRules = pageRules.Where(x => x.firstPage == pageUpdate[i]).ToList();
-                    foreach (PageRule releventPageRule in releventPageRules) 
+                    foreach (PageRule releventPageRule in releventPageRules)
                     {
                         if (pageUpdate.Contains(releventPageRule.secondPage) && pageUpdate.FindIndex(x => x == releventPageRule.secondPage) < i)
                         {
@@ -61,7 +61,7 @@ namespace AdventOfCode.Services
                 }
 
                 if (validPageUpdate)
-                    answer += pageUpdate[pageUpdate.Count/2];
+                    answer += pageUpdate[pageUpdate.Count / 2];
             }
 
             return answer.ToString();
@@ -107,24 +107,24 @@ namespace AdventOfCode.Services
             foreach (List<int> pageUpdate in pageUpdates)
             {
                 bool updateWasSorted = false;
-for (int i = 0; i < pageUpdate.Count; i++)
-{
-    if (!pageRules.Any(x => x.firstPage == pageUpdate[i]))
-        continue;
+                for (int i = 0; i < pageUpdate.Count; i++)
+                {
+                    if (!pageRules.Any(x => x.firstPage == pageUpdate[i]))
+                        continue;
 
-    List<PageRule> releventPageRules = pageRules.Where(x => x.firstPage == pageUpdate[i]).ToList();
-    foreach (PageRule releventPageRule in releventPageRules)
-    {
-        if (pageUpdate.Contains(releventPageRule.secondPage) && pageUpdate.FindIndex(x => x == releventPageRule.secondPage) < i)
-        {
-            pageUpdate.RemoveAt(i);
-            pageUpdate.Insert(pageUpdate.FindIndex(x => x == releventPageRule.secondPage), releventPageRule.firstPage);
-            i = 0;
-            updateWasSorted = true;
-        }
-    }
-}
-                if(updateWasSorted)
+                    List<PageRule> releventPageRules = pageRules.Where(x => x.firstPage == pageUpdate[i]).ToList();
+                    foreach (PageRule releventPageRule in releventPageRules)
+                    {
+                        if (pageUpdate.Contains(releventPageRule.secondPage) && pageUpdate.FindIndex(x => x == releventPageRule.secondPage) < i)
+                        {
+                            pageUpdate.RemoveAt(i);
+                            pageUpdate.Insert(pageUpdate.FindIndex(x => x == releventPageRule.secondPage), releventPageRule.firstPage);
+                            i = 0;
+                            updateWasSorted = true;
+                        }
+                    }
+                }
+                if (updateWasSorted)
                     answer += pageUpdate[pageUpdate.Count / 2];
             }
 
@@ -132,7 +132,7 @@ for (int i = 0; i < pageUpdate.Count; i++)
         }
     }
 
-    public class PageRule 
+    public class PageRule
     {
         public int firstPage;
         public int secondPage;
